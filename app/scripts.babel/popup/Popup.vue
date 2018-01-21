@@ -68,7 +68,7 @@ export default {
       var day =
         today.getFullYear() * 10000 +
         (today.getMonth() + 1) * 100 +
-        today.getDate() + 3;
+        today.getDate();
       return day;
     }
   },

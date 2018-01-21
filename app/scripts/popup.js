@@ -726,7 +726,7 @@ exports.default = {
   computed: {
     iday: function iday() {
       var today = new Date();
-      var day = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate() + 3;
+      var day = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
       return day;
     }
   },
