@@ -8,3 +8,5 @@ test/bower_components
 package
 
 
+/.vscode
+/app.crx
