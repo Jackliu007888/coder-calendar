@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 var bind = __webpack_require__(5);
-var isBuffer = __webpack_require__(26);
+var isBuffer = __webpack_require__(27);
 
 /*global toString:true*/
 
@@ -571,7 +571,7 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(28);
+var normalizeHeaderName = __webpack_require__(29);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -701,11 +701,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _api = __webpack_require__(23);
+var _api = __webpack_require__(24);
 
-var _util = __webpack_require__(43);
+var _util = __webpack_require__(44);
 
-var _base = __webpack_require__(44);
+var _base = __webpack_require__(10);
 
 exports.default = {
   data: function data() {
@@ -845,12 +845,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(29);
-var buildURL = __webpack_require__(31);
-var parseHeaders = __webpack_require__(32);
-var isURLSameOrigin = __webpack_require__(33);
+var settle = __webpack_require__(30);
+var buildURL = __webpack_require__(32);
+var parseHeaders = __webpack_require__(33);
+var isURLSameOrigin = __webpack_require__(34);
 var createError = __webpack_require__(7);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(34);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(35);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -947,7 +947,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(35);
+      var cookies = __webpack_require__(36);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1032,7 +1032,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(30);
+var enhanceError = __webpack_require__(31);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -1089,19 +1089,183 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 10 */,
-/* 11 */,
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _vue = __webpack_require__(13);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/*
+ * @Author: Jackliu
+ * @Date: 2018-01-20 09:56:14
+ * @Last Modified by: Jackliu
+ * @Last Modified time: 2018-01-21 15:04:10
+ */
+var weeks = ['日', '一', '二', '三', '四', '五', '六'];
+var directions = ['北方', '东北方', '东方', '东南方', '南方', '西南方', '西方', '西北方'];
+var activities = [{
+  name: '写单元测试',
+  good: '写单元测试将减少出错',
+  bad: '写单元测试会降低你的开发效率'
+}, {
+  name: '洗澡',
+  good: '你几天没洗澡了？',
+  bad: '会把设计方面的灵感洗掉',
+  weekend: true
+}, {
+  name: '锻炼',
+  good: '锻炼一下身体',
+  bad: '能量没消耗多少，吃得却更多',
+  weekend: true
+}, {
+  name: '抽烟',
+  good: '抽烟有利于提神，增加思维敏捷',
+  bad: '除非你活够了，死得早点没关系',
+  weekend: true
+}, {
+  name: '白天上线',
+  good: '今天白天上线是安全的',
+  bad: '可能导致灾难性后果'
+}, {
+  name: '重构',
+  good: '代码质量得到提高',
+  bad: '你很有可能会陷入泥潭'
+}, {
+  name: '使用%t',
+  good: '你看起来更有品位',
+  bad: '别人会觉得你在装逼'
+}, {
+  name: '跳槽',
+  good: '该放手时就放手',
+  bad: '鉴于当前的经济形势，你的下一份工作未必比现在强'
+}, {
+  name: '招人',
+  good: '你面前这位有成为牛人的潜质',
+  bad: '这人会写程序吗？'
+}, {
+  name: '面试',
+  good: '面试官今天心情很好',
+  bad: '面试官不爽，会拿你出气'
+}, {
+  name: '提交辞职申请',
+  good: '公司找到了一个比你更能干更便宜的家伙，巴不得你赶快滚蛋',
+  bad: '鉴于当前的经济形势，你的下一份工作未必比现在强'
+}, {
+  name: '申请加薪',
+  good: '老板今天心情很好',
+  bad: '公司正在考虑裁员'
+}, {
+  name: '晚上加班',
+  good: '晚上是程序员精神最好的时候',
+  bad: '下班就能上班了',
+  weekend: true
+}, {
+  name: '在妹子面前吹牛',
+  good: '改善你矮穷挫的形象',
+  bad: '会被识破',
+  weekend: true
+}, {
+  name: '撸管',
+  good: '避免缓冲区溢出',
+  bad: '强撸灰飞烟灭',
+  weekend: true
+}, {
+  name: '浏览成人网站',
+  good: '重拾对生活的信心',
+  bad: '你会心神不宁',
+  weekend: true
+}, {
+  name: '命名变量"%v"',
+  good: '',
+  bad: ''
+}, {
+  name: '写超过%l行的方法',
+  good: '你的代码组织的很好，长一点没关系',
+  bad: '你的代码将混乱不堪，你自己都看不懂'
+}, {
+  name: '提交代码',
+  good: '遇到冲突的几率是最低的',
+  bad: '你遇到的一大堆冲突会让你觉得自己是不是时间穿越了'
+}, {
+  name: '代码复审',
+  good: '发现重要问题的几率大大增加',
+  bad: '你什么问题都发现不了，白白浪费时间'
+}, {
+  name: '开会',
+  good: '写代码之余放松一下打个盹，有益健康',
+  bad: '小心被扣屎盆子背黑锅'
+}, {
+  name: '打DOTA',
+  good: '你将有如神助',
+  bad: '你会被虐的很惨',
+  weekend: true
+}, {
+  name: '晚上上线',
+  good: '晚上是程序员精神最好的时候',
+  bad: '你白天已经筋疲力尽了'
+}, {
+  name: '修复BUG',
+  good: '你今天对BUG的嗅觉大大提高',
+  bad: '新产生的BUG将比修复的更多'
+}, {
+  name: '设计评审',
+  good: '设计评审会议将变成头脑风暴',
+  bad: '人人筋疲力尽，评审就这么过了'
+}, {
+  name: '需求评审',
+  good: '一次过',
+  bad: '产品都是猪'
+}, {
+  name: '上微博',
+  good: '今天发生的事不能错过',
+  bad: '今天的微博充满负能量',
+  weekend: true
+}, {
+  name: '上AB站',
+  good: '还需要理由吗？',
+  bad: '满屏兄贵亮瞎你的眼',
+  weekend: true
+}, {
+  name: '玩FlappyBird',
+  good: '今天破纪录的几率很高',
+  bad: '除非你想玩到把手机砸了',
+  weekend: true
+}];
+var specials = [{
+  date: 20180214,
+  type: 'bad',
+  name: '待在男（女）友身边',
+  description: '脱团火葬场，入团保平安。'
+}];
+var tools = ['Eclipse写程序', 'MSOffice写文档', '记事本写程序', 'Windows8', 'Linux', 'MacOS', 'IE', 'Android设备', 'iOS设备'];
+var varNames = ['jieguo', 'huodong', 'pay', 'expire', 'zhangdan', 'every', 'free', 'i1', 'a', 'virtual', 'ad', 'spider', 'mima', 'pass', 'ui'];
+var drinks = ['水', '茶', '红茶', '绿茶', '咖啡', '奶茶', '可乐', '鲜奶', '豆奶', '果汁', '果味汽水', '苏打水', '运动饮料', '酸奶', '酒'];
+
+exports.weeks = weeks;
+exports.directions = directions;
+exports.activities = activities;
+exports.specials = specials;
+exports.tools = tools;
+exports.varNames = varNames;
+exports.drinks = drinks;
+
+/***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _vue = __webpack_require__(14);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _Popup = __webpack_require__(16);
+var _Popup = __webpack_require__(17);
 
 var _Popup2 = _interopRequireDefault(_Popup);
 
@@ -1137,7 +1301,7 @@ new _vue2.default({
 });
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9064,10 +9228,10 @@ Vue$3.nextTick(function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (Vue$3);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(3), __webpack_require__(14).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(3), __webpack_require__(15).setImmediate))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -9120,13 +9284,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(15);
+__webpack_require__(16);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -9319,7 +9483,7 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9331,9 +9495,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(17)
+  __webpack_require__(18)
 }
-var normalizeComponent = __webpack_require__(22)
+var normalizeComponent = __webpack_require__(23)
 /* script */
 
 
@@ -9377,17 +9541,17 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(18);
+var content = __webpack_require__(19);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(20)("6f9918a4", content, false);
+var update = __webpack_require__(21)("6f9918a4", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -9403,10 +9567,10 @@ if(false) {
 }
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(19)(false);
+exports = module.exports = __webpack_require__(20)(false);
 // imports
 
 
@@ -9417,7 +9581,7 @@ exports.push([module.i, "\n*[data-v-1703873e] {\n  margin: 0;\n  padding: 0;\n}\
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 /*
@@ -9499,7 +9663,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -9518,7 +9682,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(21)
+var listToStyles = __webpack_require__(22)
 
 /*
 type StyleObject = {
@@ -9720,7 +9884,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /**
@@ -9753,7 +9917,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -9862,7 +10026,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9873,7 +10037,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getOne = getOne;
 
-var _axios = __webpack_require__(24);
+var _axios = __webpack_require__(25);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -9890,13 +10054,13 @@ function getOne(type) {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(25);
+module.exports = __webpack_require__(26);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9904,7 +10068,7 @@ module.exports = __webpack_require__(25);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(5);
-var Axios = __webpack_require__(27);
+var Axios = __webpack_require__(28);
 var defaults = __webpack_require__(2);
 
 /**
@@ -9939,14 +10103,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(9);
-axios.CancelToken = __webpack_require__(41);
+axios.CancelToken = __webpack_require__(42);
 axios.isCancel = __webpack_require__(8);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(42);
+axios.spread = __webpack_require__(43);
 
 module.exports = axios;
 
@@ -9955,7 +10119,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 /*!
@@ -9982,7 +10146,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9990,8 +10154,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(36);
-var dispatchRequest = __webpack_require__(37);
+var InterceptorManager = __webpack_require__(37);
+var dispatchRequest = __webpack_require__(38);
 
 /**
  * Create a new instance of Axios
@@ -10068,7 +10232,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10087,7 +10251,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10120,7 +10284,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10148,7 +10312,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10223,7 +10387,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10283,7 +10447,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10358,7 +10522,7 @@ module.exports = (
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10401,7 +10565,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10461,7 +10625,7 @@ module.exports = (
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10520,18 +10684,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(38);
+var transformData = __webpack_require__(39);
 var isCancel = __webpack_require__(8);
 var defaults = __webpack_require__(2);
-var isAbsoluteURL = __webpack_require__(39);
-var combineURLs = __webpack_require__(40);
+var isAbsoluteURL = __webpack_require__(40);
+var combineURLs = __webpack_require__(41);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -10613,7 +10777,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10640,7 +10804,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10661,7 +10825,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10682,7 +10846,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10746,7 +10910,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10780,7 +10944,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10794,17 +10958,17 @@ exports.random = random;
 exports.pickRandom = pickRandom;
 exports.pickRandomActivity = pickRandomActivity;
 exports.filter = filter;
-// var today = new Date()
 
-// export function is_someday() {
-//   return today.getMonth() == 5 && today.getDate() == 4;
-// }
+var _base = __webpack_require__(10);
 
 function star(num) {
   var i = num > 5 ? 5 : num < 0 ? 0 : num;
   return '★★★★★☆☆☆☆☆'.slice(5 - parseInt(i)).slice(0, 5);
-}
+} // var today = new Date()
 
+// export function is_someday() {
+//   return today.getMonth() == 5 && today.getDate() == 4;
+// }
 function random(dayseed, indexseed) {
   var n = dayseed % 11117;
   for (var i = 0; i < 100 + indexseed; i++) {
@@ -10847,11 +11011,11 @@ function parse(event, iday) {
   }; // clone
 
   if (result.name.indexOf('%v') != -1) {
-    result.name = result.name.replace('%v', varNames[random(iday, 12) % varNames.length]);
+    result.name = result.name.replace('%v', _base.varNames[random(iday, 12) % _base.varNames.length]);
   }
 
   if (result.name.indexOf('%t') != -1) {
-    result.name = result.name.replace('%t', tools[random(iday, 11) % tools.length]);
+    result.name = result.name.replace('%t', _base.tools[random(iday, 11) % _base.tools.length]);
   }
 
   if (result.name.indexOf('%l') != -1) {
@@ -10879,170 +11043,6 @@ function filter(activities, iday) {
 function isWeekend(iday) {
   return (iday + 4) % 7 == 0 || (iday + 4) % 7 == 6;
 }
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/*
- * @Author: Jackliu
- * @Date: 2018-01-20 09:56:14
- * @Last Modified by: Jackliu
- * @Last Modified time: 2018-01-21 15:04:10
- */
-var weeks = ['日', '一', '二', '三', '四', '五', '六'];
-var directions = ['北方', '东北方', '东方', '东南方', '南方', '西南方', '西方', '西北方'];
-var activities = [{
-  name: '写单元测试',
-  good: '写单元测试将减少出错',
-  bad: '写单元测试会降低你的开发效率'
-}, {
-  name: '洗澡',
-  good: '你几天没洗澡了？',
-  bad: '会把设计方面的灵感洗掉',
-  weekend: true
-}, {
-  name: '锻炼',
-  good: '锻炼一下身体',
-  bad: '能量没消耗多少，吃得却更多',
-  weekend: true
-}, {
-  name: '抽烟',
-  good: '抽烟有利于提神，增加思维敏捷',
-  bad: '除非你活够了，死得早点没关系',
-  weekend: true
-}, {
-  name: '白天上线',
-  good: '今天白天上线是安全的',
-  bad: '可能导致灾难性后果'
-}, {
-  name: '重构',
-  good: '代码质量得到提高',
-  bad: '你很有可能会陷入泥潭'
-}, {
-  name: '使用%t',
-  good: '你看起来更有品位',
-  bad: '别人会觉得你在装逼'
-}, {
-  name: '跳槽',
-  good: '该放手时就放手',
-  bad: '鉴于当前的经济形势，你的下一份工作未必比现在强'
-}, {
-  name: '招人',
-  good: '你面前这位有成为牛人的潜质',
-  bad: '这人会写程序吗？'
-}, {
-  name: '面试',
-  good: '面试官今天心情很好',
-  bad: '面试官不爽，会拿你出气'
-}, {
-  name: '提交辞职申请',
-  good: '公司找到了一个比你更能干更便宜的家伙，巴不得你赶快滚蛋',
-  bad: '鉴于当前的经济形势，你的下一份工作未必比现在强'
-}, {
-  name: '申请加薪',
-  good: '老板今天心情很好',
-  bad: '公司正在考虑裁员'
-}, {
-  name: '晚上加班',
-  good: '晚上是程序员精神最好的时候',
-  bad: '下班就能上班了',
-  weekend: true
-}, {
-  name: '在妹子面前吹牛',
-  good: '改善你矮穷挫的形象',
-  bad: '会被识破',
-  weekend: true
-}, {
-  name: '撸管',
-  good: '避免缓冲区溢出',
-  bad: '强撸灰飞烟灭',
-  weekend: true
-}, {
-  name: '浏览成人网站',
-  good: '重拾对生活的信心',
-  bad: '你会心神不宁',
-  weekend: true
-}, {
-  name: '命名变量"%v"',
-  good: '',
-  bad: ''
-}, {
-  name: '写超过%l行的方法',
-  good: '你的代码组织的很好，长一点没关系',
-  bad: '你的代码将混乱不堪，你自己都看不懂'
-}, {
-  name: '提交代码',
-  good: '遇到冲突的几率是最低的',
-  bad: '你遇到的一大堆冲突会让你觉得自己是不是时间穿越了'
-}, {
-  name: '代码复审',
-  good: '发现重要问题的几率大大增加',
-  bad: '你什么问题都发现不了，白白浪费时间'
-}, {
-  name: '开会',
-  good: '写代码之余放松一下打个盹，有益健康',
-  bad: '小心被扣屎盆子背黑锅'
-}, {
-  name: '打DOTA',
-  good: '你将有如神助',
-  bad: '你会被虐的很惨',
-  weekend: true
-}, {
-  name: '晚上上线',
-  good: '晚上是程序员精神最好的时候',
-  bad: '你白天已经筋疲力尽了'
-}, {
-  name: '修复BUG',
-  good: '你今天对BUG的嗅觉大大提高',
-  bad: '新产生的BUG将比修复的更多'
-}, {
-  name: '设计评审',
-  good: '设计评审会议将变成头脑风暴',
-  bad: '人人筋疲力尽，评审就这么过了'
-}, {
-  name: '需求评审',
-  good: '一次过',
-  bad: '产品都是猪'
-}, {
-  name: '上微博',
-  good: '今天发生的事不能错过',
-  bad: '今天的微博充满负能量',
-  weekend: true
-}, {
-  name: '上AB站',
-  good: '还需要理由吗？',
-  bad: '满屏兄贵亮瞎你的眼',
-  weekend: true
-}, {
-  name: '玩FlappyBird',
-  good: '今天破纪录的几率很高',
-  bad: '除非你想玩到把手机砸了',
-  weekend: true
-}];
-var specials = [{
-  date: 20180214,
-  type: 'bad',
-  name: '待在男（女）友身边',
-  description: '脱团火葬场，入团保平安。'
-}];
-var tools = ['Eclipse写程序', 'MSOffice写文档', '记事本写程序', 'Windows8', 'Linux', 'MacOS', 'IE', 'Android设备', 'iOS设备'];
-var varNames = ['jieguo', 'huodong', 'pay', 'expire', 'zhangdan', 'every', 'free', 'i1', 'a', 'virtual', 'ad', 'spider', 'mima', 'pass', 'ui'];
-var drinks = ['水', '茶', '红茶', '绿茶', '咖啡', '奶茶', '可乐', '鲜奶', '豆奶', '果汁', '果味汽水', '苏打水', '运动饮料', '酸奶', '酒'];
-
-exports.weeks = weeks;
-exports.directions = directions;
-exports.activities = activities;
-exports.specials = specials;
-exports.tools = tools;
-exports.varNames = varNames;
-exports.drinks = drinks;
 
 /***/ }),
 /* 45 */

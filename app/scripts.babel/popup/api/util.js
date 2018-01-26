@@ -3,6 +3,7 @@
 // export function is_someday() {
 //   return today.getMonth() == 5 && today.getDate() == 4;
 // }
+import { varNames, tools } from './base'
 
 export function star(num) {
   var i = num > 5 ? 5 : (num < 0 ? 0 : num)
