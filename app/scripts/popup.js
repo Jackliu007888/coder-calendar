@@ -698,7 +698,7 @@ module.exports = g;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _api = __webpack_require__(24);
@@ -708,80 +708,97 @@ var _util = __webpack_require__(44);
 var _base = __webpack_require__(10);
 
 exports.default = {
-  data: function data() {
-    return {
-      oneSentence: ''
-    };
-  },
-  created: function created() {
-    this.todayString = this.getTodayString(this.iday);
-    this.toward = this.getToward(this.iday);
-    this.drink = this.getDrink(this.iday);
-    this.goddess = this.getGoddess(this.iday);
-    this.goodEvents = this.getEvent(this.iday).goodEvents;
-    this.badEvents = this.getEvent(this.iday).badEvents;
-    this._getOne();
-  },
+	data: function data() {
+		return {
+			oneSentence: ''
+		};
+	},
+	created: function created() {
+		this.todayString = this.getTodayString(this.iday);
+		this.toward = this.getToward(this.iday);
+		this.drink = this.getDrink(this.iday);
+		this.goddess = this.getGoddess(this.iday);
+		this.goodEvents = this.getEvent(this.iday).goodEvents;
+		this.badEvents = this.getEvent(this.iday).badEvents;
+		this._getOne();
+	},
 
-  computed: {
-    iday: function iday() {
-      var today = new Date();
-      var day = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-      return day;
-    }
-  },
-  methods: {
-    getTodayString: function getTodayString(iday) {
-      return '\u4ECA\u5929\u662F' + iday.toString().slice(0, 4) + '\u5E74' + iday.toString().slice(4, 6) + '\u6708' + iday.toString().slice(6, 8) + ' \u661F\u671F' + _base.weeks[new Date().getDay() % 7];
-    },
-    getToward: function getToward(iday) {
-      return _base.directions[(0, _util.random)(iday, 2) % _base.directions.length];
-    },
-    getDrink: function getDrink(iday) {
-      return (0, _util.pickRandom)(_base.drinks, 2, iday).join('，');
-    },
-    getGoddess: function getGoddess(iday) {
-      return (0, _util.star)((0, _util.random)(iday, 6) % 5 + 1);
-    },
-    getEvent: function getEvent(iday) {
-      var filterActivies = (0, _util.filter)(_base.activities, iday);
-      var numGood = (0, _util.random)(iday, 98) % 3 + 2;
-      var numBad = (0, _util.random)(iday, 87) % 3 + 2;
-      var eventArr = (0, _util.pickRandomActivity)(filterActivies, numGood + numBad, this.iday);
-      console.log(eventArr);
-      console.log(filterActivies);
-      var goodEvents = [],
-          badEvents = [];
-      for (var i = 0; i < _base.specials.length; i++) {
-        var special = _base.specials[i];
-        if (iday == special.date) {
-          if (special.type == 'good') {
-            goodEvents.push({ name: special.name, good: special.description });
-          }
-          if (special.type == 'bad') {
-            badEvents.push({ name: special.name, bad: special.description });
-          }
-        }
-      }
-      for (var i = 0; i < numGood; i++) {
-        goodEvents.push(eventArr[i]);
-      }
+	computed: {
+		iday: function iday() {
+			var today = new Date();
+			var day = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+			return day;
+		}
+	},
+	methods: {
+		getTodayString: function getTodayString(iday) {
+			return '\u4ECA\u5929\u662F' + iday.toString().slice(0, 4) + '\u5E74' + iday.toString().slice(4, 6) + '\u6708' + iday.toString().slice(6, 8) + ' \u661F\u671F' + _base.weeks[new Date().getDay() % 7];
+		},
+		getToward: function getToward(iday) {
+			return _base.directions[(0, _util.random)(iday, 2) % _base.directions.length];
+		},
+		getDrink: function getDrink(iday) {
+			return (0, _util.pickRandom)(_base.drinks, 2, iday).join('，');
+		},
+		getGoddess: function getGoddess(iday) {
+			return (0, _util.star)((0, _util.random)(iday, 6) % 5 + 1);
+		},
+		getEvent: function getEvent(iday) {
+			var filterActivies = (0, _util.filter)(_base.activities, iday);
+			var numGood = (0, _util.random)(iday, 98) % 3 + 2;
+			var numBad = (0, _util.random)(iday, 87) % 3 + 2;
+			var eventArr = (0, _util.pickRandomActivity)(filterActivies, numGood + numBad, this.iday);
+			console.log(eventArr);
+			console.log(filterActivies);
+			var goodEvents = [],
+			    badEvents = [];
+			for (var i = 0; i < _base.specials.length; i++) {
+				var special = _base.specials[i];
+				if (iday == special.date) {
+					if (special.type == 'good') {
+						goodEvents.push({ name: special.name, good: special.description });
+					}
+					if (special.type == 'bad') {
+						badEvents.push({ name: special.name, bad: special.description });
+					}
+				}
+			}
+			for (var i = 0; i < numGood; i++) {
+				goodEvents.push(eventArr[i]);
+			}
 
-      for (var i = 0; i < numBad; i++) {
-        badEvents.push(eventArr[numGood + i]);
-      }
-      return { goodEvents: goodEvents.slice(0, 3), badEvents: badEvents.slice(0, 2) };
-    },
-    _getOne: function _getOne() {
-      var _this = this;
+			for (var i = 0; i < numBad; i++) {
+				badEvents.push(eventArr[numGood + i]);
+			}
+			return {
+				goodEvents: goodEvents.slice(0, 3),
+				badEvents: badEvents.slice(0, 2)
+			};
+		},
+		_getOne: function _getOne() {
+			var _this = this;
 
-      (0, _api.getOne)('r').then(function (res) {
-        console.log(res.data.sentence);
-        _this.oneSentence = res.data.sentence || '';
-      });
-    }
-  }
+			(0, _api.getOne)('r').then(function (res) {
+				var len = res.data.sentence.length;
+				console.log(len);
+				if (len === 0 || len > 100) {
+					_this._getOne();
+				} else {
+					_this.oneSentence = res.data.sentence || '';
+				}
+			});
+		}
+	}
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11069,7 +11086,7 @@ var render = function() {
           { staticClass: "desc" },
           [
             _vm._l(_vm.goodEvents, function(item) {
-              return _c("li", [
+              return _c("li", { key: item.name }, [
                 _c("h3", [_vm._v(_vm._s(item.name))]),
                 _vm._v(" "),
                 _c("p", [_vm._v(_vm._s(item.good))])
@@ -11089,7 +11106,7 @@ var render = function() {
           { staticClass: "desc" },
           [
             _vm._l(_vm.badEvents, function(item) {
-              return _c("li", [
+              return _c("li", { key: item.name }, [
                 _c("h3", [_vm._v(_vm._s(item.name))]),
                 _vm._v(" "),
                 _c("p", [_vm._v(_vm._s(item.bad))])
@@ -11104,7 +11121,7 @@ var render = function() {
       _c("div", { staticClass: "foot-desc", class: _vm.iday }, [
         _c("p", [
           _c("strong", [_vm._v("座位朝向：")]),
-          _vm._v("面向"),
+          _vm._v("面向\n        "),
           _c("span", [_vm._v(_vm._s(_vm.toward))]),
           _vm._v("写程序，BUG最少。")
         ]),
@@ -11116,6 +11133,7 @@ var render = function() {
         _vm._v(" "),
         _c("p", [
           _c("strong", [_vm._v("女神亲近指数：")]),
+          _vm._v(" "),
           _c("span", { staticClass: "star" }, [_vm._v(_vm._s(_vm.goddess))])
         ])
       ]),

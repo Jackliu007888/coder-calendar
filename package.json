@@ -1,5 +1,10 @@
 {
   "name": "chrom-extensions",
+  "scripts": {
+    "dev": "gulp watch",
+    "start": "gulp watch",
+    "build": "gulp build"
+  },
   "private": true,
   "engines": {
     "node": ">=0.8.0"

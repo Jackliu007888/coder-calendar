@@ -1,126 +1,158 @@
 <template>
-<div class="popup">
-  <div class="title">
-    <p>程序员老黄历</p>
-    <h2>{{todayString}}</h2>
+  <div class="popup">
+    <div class="title">
+      <p>程序员老黄历</p>
+      <h2>{{todayString}}</h2>
+    </div>
+    <div class="body">
+      <div class="can-do">
+        <div class="left-part">
+          <span>宜</span>
+        </div>
+        <ul class="desc">
+          <li v-for="item in goodEvents" :key="item.name">
+            <h3>{{item.name}}</h3>
+            <p>{{item.good}}</p>
+            <li/>
+        </ul>
+      </div>
+      <div class="can-not-do">
+        <div class="left-part">
+          <span>不宜</span>
+        </div>
+        <ul class="desc">
+          <li v-for="item in badEvents" :key="item.name">
+            <h3>{{item.name}}</h3>
+            <p>{{item.bad}}</p>
+            <li/>
+        </ul>
+      </div>
+      <div class="foot-desc" :class="iday">
+        <p>
+          <strong>座位朝向：</strong>面向
+          <span>{{toward}}</span>写程序，BUG最少。</p>
+        <p>
+          <strong>今日宜饮：</strong>{{drink}}</p>
+        <p>
+          <strong>女神亲近指数：</strong>
+          <span class="star">{{goddess}}</span>
+        </p>
+      </div>
+      <div class="one">
+        <p>{{oneSentence}}</p>
+      </div>
+    </div>
   </div>
-  <div class="body">
-    <div class="can-do">
-      <div class="left-part"><span>宜</span></div>
-      <ul class="desc">
-        <li v-for="item in goodEvents">
-          <h3>{{item.name}}</h3>
-          <p>{{item.good}}</p>  
-        <li/>
-      </ul>
-    </div>
-    <div class="can-not-do">
-      <div class="left-part"><span>不宜</span></div>
-      <ul class="desc">
-        <li v-for="item in badEvents">
-          <h3>{{item.name}}</h3>
-          <p>{{item.bad}}</p>  
-        <li/>
-      </ul>
-    </div>
-    <div class="foot-desc" :class="iday">
-      <p><strong>座位朝向：</strong>面向<span>{{toward}}</span>写程序，BUG最少。</p>
-      <p><strong>今日宜饮：</strong>{{drink}}</p>
-      <p><strong>女神亲近指数：</strong><span class="star">{{goddess}}</span></p>
-    </div>
-    <div class="one">
-      <p>{{oneSentence}}</p>
-    </div>
-  </div>
-
-</div>
 </template>
 <script>
 import { getOne } from './api/api'
-import { random, star, pickRandom, pickRandomActivity, filter } from './api/util';
 import {
-  weeks,
-  directions,
-  activities,
-  specials,
-  tools,
-  varNames,
-  drinks
-} from './api/base';
+	random,
+	star,
+	pickRandom,
+	pickRandomActivity,
+	filter
+} from './api/util'
+import {
+	weeks,
+	directions,
+	activities,
+	specials,
+	tools,
+	varNames,
+	drinks
+} from './api/base'
 export default {
-  data() {
-    return {
-      oneSentence: ''
-    };
-  },
-  created() {
-    this.todayString = this.getTodayString(this.iday);
-    this.toward = this.getToward(this.iday);
-    this.drink = this.getDrink(this.iday);
-    this.goddess = this.getGoddess(this.iday);
-    this.goodEvents = this.getEvent(this.iday).goodEvents;
-    this.badEvents = this.getEvent(this.iday).badEvents;
-    this._getOne()
-  },
-  computed: {
-    iday() {
-      var today = new Date();
-      var day =
-        today.getFullYear() * 10000 +
-        (today.getMonth() + 1) * 100 +
-        today.getDate();
-      return day;
-    }
-  },
-  methods: {
-    getTodayString(iday) {
-      return `今天是${iday.toString().slice(0, 4)}年${iday.toString().slice(4,6)}月${iday.toString().slice(6,8)} 星期${weeks[(new Date()).getDay() % 7]}`
-    },
-    getToward(iday) {
-      return directions[random(iday, 2) % directions.length];
-    },
-    getDrink(iday) {
-      return pickRandom(drinks, 2, iday).join('，');
-    },
-    getGoddess(iday) {
-      return star(random(iday, 6) % 5 + 1);
-    },
-    getEvent(iday) {
-      var filterActivies = filter(activities, iday)
-      var numGood = random(iday, 98) % 3 + 2;
-      var numBad = random(iday, 87) % 3 + 2;
-      var eventArr = pickRandomActivity(filterActivies, numGood + numBad, this.iday);
-      console.log(eventArr)
-      console.log(filterActivies)
-      var goodEvents = [], badEvents = [];
-      for (var i = 0; i < specials.length; i++) {
-        var special = specials[i];
-        if(iday == special.date) {
-          if (special.type == 'good') {
-            goodEvents.push({name:special.name,good: special.description});
-          }
-          if (special.type == 'bad') {
-            badEvents.push({name:special.name,bad: special.description});
-          }
-        }
-      }
-      for (var i = 0; i < numGood; i++) {
-        goodEvents.push(eventArr[i]);
-      }
+	data() {
+		return {
+			oneSentence: ''
+		}
+	},
+	created() {
+		this.todayString = this.getTodayString(this.iday)
+		this.toward = this.getToward(this.iday)
+		this.drink = this.getDrink(this.iday)
+		this.goddess = this.getGoddess(this.iday)
+		this.goodEvents = this.getEvent(this.iday).goodEvents
+		this.badEvents = this.getEvent(this.iday).badEvents
+		this._getOne()
+	},
+	computed: {
+		iday() {
+			var today = new Date()
+			var day =
+				today.getFullYear() * 10000 +
+				(today.getMonth() + 1) * 100 +
+				today.getDate()
+			return day
+		}
+	},
+	methods: {
+		getTodayString(iday) {
+			return `今天是${iday.toString().slice(0, 4)}年${iday
+				.toString()
+				.slice(4, 6)}月${iday.toString().slice(6, 8)} 星期${
+				weeks[new Date().getDay() % 7]
+			}`
+		},
+		getToward(iday) {
+			return directions[random(iday, 2) % directions.length]
+		},
+		getDrink(iday) {
+			return pickRandom(drinks, 2, iday).join('，')
+		},
+		getGoddess(iday) {
+			return star(random(iday, 6) % 5 + 1)
+		},
+		getEvent(iday) {
+			var filterActivies = filter(activities, iday)
+			var numGood = random(iday, 98) % 3 + 2
+			var numBad = random(iday, 87) % 3 + 2
+			var eventArr = pickRandomActivity(
+				filterActivies,
+				numGood + numBad,
+				this.iday
+			)
+			console.log(eventArr)
+			console.log(filterActivies)
+			var goodEvents = [],
+				badEvents = []
+			for (var i = 0; i < specials.length; i++) {
+				var special = specials[i]
+				if (iday == special.date) {
+					if (special.type == 'good') {
+						goodEvents.push({ name: special.name, good: special.description })
+					}
+					if (special.type == 'bad') {
+						badEvents.push({ name: special.name, bad: special.description })
+					}
+				}
+			}
+			for (var i = 0; i < numGood; i++) {
+				goodEvents.push(eventArr[i])
+			}
 
-      for (var i = 0; i < numBad; i++) {
-        badEvents.push(eventArr[numGood + i]);
-      }
-      return { goodEvents: goodEvents.slice(0,3) , badEvents: badEvents.slice(0,2) };
-    },
-    _getOne() {
-      getOne('r').then((res) => {
-        console.log(res.data.sentence)
-        this.oneSentence = res.data.sentence || ''
-      })
-    }
-  }
-};
+			for (var i = 0; i < numBad; i++) {
+				badEvents.push(eventArr[numGood + i])
+			}
+			return {
+				goodEvents: goodEvents.slice(0, 3),
+				badEvents: badEvents.slice(0, 2)
+			}
+		},
+		_getOne() {
+			getOne('r').then(res => {
+				let len = res.data.sentence.length
+        console.log(len)
+        if (len === 0 || len > 100) {
+          this._getOne()
+        } else {
+				  this.oneSentence = res.data.sentence || ''
+        }
+			})
+		}
+	}
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -241,12 +273,13 @@ export default {
   }
 }
 
- .one{
-  background #666  
-  padding 10px
+.one {
+  background: #666;
+  padding: 10px;
+
   p {
-    font-size 14px
-    color #fff
+    font-size: 14px;
+    color: #fff;
   }
- }
+}
 </style>
